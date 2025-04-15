@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { Box, Typography, TextField, Button, Avatar } from '@mui/material';
 
-const comment = () => {
+const comment = (handleSubmit, onSubmitComment) => {
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmitComment)} className="mb-6">
       <TextField
