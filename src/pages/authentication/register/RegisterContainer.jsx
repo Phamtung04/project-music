@@ -27,17 +27,16 @@ const RegisterContainer = () => {
     onError: (error) => {
       console.log(error);
     },
-  })
+  });
 
   const onSubmit = (data) => {
     mutation.mutate(data);
-    console.log(data);  
+    console.log(data);
   };
-
 
   return (
     <FormProvider {...methods}>
-      <Box className="w-120 items-center flex flex-col bg-gray-600 shadow-yellow-900-500" >
+      <Box className="w-120 items-center flex flex-col bg-gray-600 shadow-yellow-900-500 rounded-2xl">
         <Typography variant="h4" className="pt-10 text-center font-bold text-white">
           Register
         </Typography>
@@ -53,10 +52,12 @@ const RegisterContainer = () => {
         </form>
 
         <Box className="flex flex-col gap-2 items-center justify-center my-5 text-white">
-          <p>if you have already account? <button className="text-blue-300" onClick={() => navigate('/login')}>
-            Login
-          </button></p>
-          
+          <p>
+            if you have already account?{' '}
+            <button className="text-blue-300" onClick={() => navigate('/login')}>
+              Login
+            </button>
+          </p>
         </Box>
       </Box>
     </FormProvider>

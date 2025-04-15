@@ -14,18 +14,18 @@ const ListMusic = ({ filteredSongs, onClickListMusic, onClickButton, favorites }
           {filteredSongs.map((song) => (
             <div
               key={song.id}
-              onClick={onClickListMusic}
-              className="flex-1 bg-gray-800 mb-5 p-4 rounded-2xl shadow-lg hover:bg-gray-700 cursor-pointer transition-transform hover:scale-105 relative"
+              onClick={() => onClickListMusic(song)}
+              className="flex-1 min-w-[200px] bg-gray-800 mb-5 p-4 rounded-2xl shadow-lg hover:bg-gray-700 cursor-pointer transition-transform hover:scale-105 relative"
             >
               <img
                 src={song.image}
                 alt={song.title}
-                className="h-40 w-full object-cover rounded-xl mb-3"
+                className="h-40 object-cover rounded-xl mb-3"
               />
               <h3 className="font-semibold text-lg truncate">{song.title}</h3>
               <p className="text-sm text-gray-400">{song.artist}</p>
               <button
-                onClick={onClickButton}
+                onClick={(e) => onClickButton(e, song)}
                 className="absolute bottom-5 right-4 text-red-500 hover:scale-110"
               >
                 {favorites.includes(song.id) ? (

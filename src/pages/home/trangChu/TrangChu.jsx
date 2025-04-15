@@ -4,10 +4,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import PauseIcon from '@mui/icons-material/Pause';
-import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ListMusic from '../listMusic/ListMusic';
 import MusicGenreList from '../../categoryList/MusicGenreList';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import DetailMusic from '../detailMusic/DetailMusic';
+import DetailMusicContainer from '../detailMusic/DetailMusicContainer';
 // import { Typography } from '@mui/material';
 
 const TrangChu = () => {
@@ -209,15 +211,26 @@ const TrangChu = () => {
 
   const playModeIcon = playMode === 'shuffle' ? '🔀' : playMode === 'repeat' ? '🔁' : '▶️';
 
-  const onClickListMusic = () => {
+  const onClickListMusic = (song) => {
     setCurrentSong(song);
     setIsPlaying(true);
   };
 
   const onClickButton = (e) => {
     e.stopPropagation();
-    toggleFavorite(song);
+    toggleFavorite(songs);
   };
+
+  // Thêm state mới để quản lý modal
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  // Các hàm và logic hiện tại...
+
+  // Hàm mở/đóng modal
+  const toggleDetailModal = () => {
+    setIsDetailModalOpen(!isDetailModalOpen);
+  };
+
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-start text-white overflow-hidden">
       {/* Lời chào */}
@@ -257,8 +270,11 @@ const TrangChu = () => {
       {currentSong && (
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 opacity-75 text-white p-4 rounded-2xl shadow-xl flex flex-col items-center w-full max-w-lg z-50">
           <div className="flex items-center justify-between w-full">
-            {/* Thông tin bài hát */}
-            <div className="flex items-center gap-3">
+            {/* Thông tin bài hát - thêm onClick để mở modal */}
+            <div
+              className="flex items-center gap-3 cursor-pointer hover:bg-gray-700 p-2 rounded-lg"
+              onClick={toggleDetailModal}
+            >
               <img
                 src={currentSong.image}
                 alt={currentSong.title}
@@ -279,7 +295,7 @@ const TrangChu = () => {
                 <SkipPreviousIcon size={16} />
               </button>
               <button onClick={() => setIsPlaying(!isPlaying)} className="hover:text-green-400">
-                {isPlaying ? <PauseIcon size={20} /> : <PauseCircleOutlineIcon size={20} />}
+                {isPlaying ? <PauseIcon size={20} /> : <PlayArrowIcon size={20} />}
               </button>
               <button onClick={playNext} className="hover:text-yellow-400">
                 <SkipNextIcon size={16} />
@@ -317,6 +333,30 @@ const TrangChu = () => {
         </div>
       )}
 
+      {/* Modal hiển thị chi tiết bài hát */}
+      {isDetailModalOpen && currentSong && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-xl w-11/12 max-w-5xl max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-end p-4">
+              <button
+                onClick={toggleDetailModal}
+                className="text-white hover:text-yellow-400 text-2xl"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="p-4">
+              <DetailMusic song={currentSong} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isDetailModalOpen && currentSong && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 pl-[250px]">
+          <DetailMusicContainer song={currentSong} onClose={toggleDetailModal} />
+        </div>
+      )}
       <footer className="w-full mt-10 py-4 bg-gray-800 text-center text-sm text-gray-400">
         My Music
       </footer>

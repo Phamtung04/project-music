@@ -37,7 +37,7 @@ const ForgotPasswordContainer = () => {
   };
   return (
     <FormProvider {...methods}>
-      <Box className="w-120 items-center flex flex-col bg-gray-600 shadow-yellow-900-500">
+      <Box className="w-120 items-center flex flex-col bg-gray-600 shadow-yellow-900-500 rounded-2xl">
         <Typography variant="h4" className="pt-10 text-center font-bold text-white">
           Forgot Password
         </Typography>

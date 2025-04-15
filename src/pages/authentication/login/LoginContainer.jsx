@@ -36,10 +36,7 @@ const LoginContainer = () => {
 
   return (
     <FormProvider {...methods}>
-      <Box
-        sx={{ backgroundColor: '#4a5565', borderRadius: '20px' }}
-        className="w-120 items-center flex flex-col shadow-yellow-900-500 "
-      >
+      <Box className="w-120 items-center flex flex-col shadow-yellow-900-500 bg-gray-600 rounded-2xl">
         <Typography variant="h4" className="pt-10 text-center font-bold text-white">
           Login
         </Typography>
